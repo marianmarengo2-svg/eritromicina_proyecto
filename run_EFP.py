@@ -1,6 +1,6 @@
 from data_provider.data_factory import data_provider
 from models import Autoformer, DLinear, TimeLLM, TimesNet, PatchTST, Informer, iTransformer, \
-    TimeXer, TiDE, MtsLLM, woLLM, TLinear, TimeModeLLM
+    TimeXer, TiDE, MtsLLM, woLLM, TLinear, MASTER
 from tqdm import tqdm
 import time as t
 import torch
@@ -20,9 +20,9 @@ os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 parser = argparse.ArgumentParser(description='Time-LLM')
 # basic config
-parser.add_argument('--model', type=str, default='TimeModeLLM',
-                    help='model name, options: [TimeLLM, Autoformer, DLinear, TLinear, TimesNet, PatchTST, Informer, iTransformer'
-                         'TimeXer, TiDE, MtsLLM, woLLM, TimeModeLLM]')
+parser.add_argument('--model', type=str, default='MASTER',
+                    help='model name, options: [TimeLLM, Autoformer, DLinear,  TimesNet, PatchTST, Informer, iTransformer'
+                         'TimeXer, TiDE, MASTER]')
 parser.add_argument('--task_name', type=str, default='long_term_forecast',
                     help='task name, options:[long_term_forecast, short_term_forecast, imputation, classification, anomaly_detection]')
 
@@ -357,14 +357,8 @@ if __name__ == "__main__":
             model = TimeXer.Model(args).float().to(device)
         elif args.model == 'TiDE':
             model = TiDE.Model(args).float().to(device)
-        elif args.model == 'MtsLLM':
-            model = MtsLLM.Model(args).float().to(device)
-        elif args.model == 'woLLM':
-            model = woLLM.Model(args).float().to(device)
-        elif args.model == 'TLinear':
-            model = TLinear.Model(args).float().to(device)
-        elif args.model == 'TimeModeLLM':
-            model = TimeModeLLM.Model(args).float().to(device)
+        elif args.model == 'MASTER':
+            model = MASTER.Model(args).float().to(device)
         optimizer = optim.SGD(model.parameters(), lr=args.learning_rate, momentum=0.9)
         mae, mse, rmse, mape, mspe, smape, mase, time = main_run(model, optimizer, train_data, train_loader, vali_data,
                                                                  vali_loader, test_data, test_loader, i)
