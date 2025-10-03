@@ -4,8 +4,8 @@
 Análisis de datos y modelo de machine learning para optimizar la producción de eritromicina en biorreactores industriales.
 
 **Contexto:** Trabajo Integrador + Tesis de Grado  
-**Universidad:** [Tu Universidad]  
-**Autor:** [Tu Nombre]
+**Universidad:** UTN FRM  
+**Autor:** M.L.Marengo
 
 ## 🎯 Objetivos
 - [ ] Análisis exploratorio del dataset EFP_long
